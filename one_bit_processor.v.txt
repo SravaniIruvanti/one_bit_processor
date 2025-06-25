@@ -1,0 +1,21 @@
+module one_bit_processor(
+    input clk, input rst,// clock and reset
+    input [3:0] instr_in,// instruction op code
+    input [1:0] sel,// select mux output Logic unit or data 
+    input data_a, data_b,// inputs 
+    output write, jmp, rtn, flag_f, oen,
+    output mux_out,
+    output result_out
+);
+    wire [3:0] instr;
+    wire lu_result;
+
+    instruction_register IR(clk, rst, 1'b1, instr_in, instr);
+    logic_unit LU(instr, data_a, data_b, lu_result);
+    control_unit CU(instr, flag_f, write, stoc, jmp, rtn, oen);
+    mux Mu(sel,data_a,data_b,lu_result,mux_out);
+    result_register RR(clk, rst, stoc,mux_out, result_out);
+
+    assign flag_f = result_out; // flag reflects RR
+endmodule
+

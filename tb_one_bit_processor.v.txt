@@ -1,0 +1,51 @@
+module tb_one_bit_processor();
+    reg clk = 0;
+    reg rst;
+    reg [3:0] instr_in;
+    reg [1:0] sel;
+    reg data_a, data_b;
+    wire write, jmp, rtn, flag_f, oen, result_out;
+ one_bit_processor uut (
+    .clk(clk),
+    .rst(rst),
+    .instr_in(instr_in),
+    .sel(sel),
+    .data_a(data_a),
+    .data_b(data_b),
+    .write(write),
+    .jmp(jmp),
+    .rtn(rtn),
+    .flag_f(flag_f),
+    .oen(oen),
+    .mux_out(mux_out),
+    .result_out(result_out)
+);
+
+    always #5 clk = ~clk;
+    initial begin
+        $display("Time | Opcode | A | B | Result | Flag_F | Write");
+        rst = 1; 
+        sel= 2'b00;
+        instr_in = 4'b0000; data_a = 0; data_b = 1;
+        #10 rst = 0;
+        sel = 2'b01;
+        instr_in = 4'b0001; data_a = 1; data_b = 1; #10;
+        sel = 2'b10;
+        instr_in = 4'b0001; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b0010; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b0011; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b0100; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b0101; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b0110; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b0111; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b1000; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b1001; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b1010; data_a = 0; data_b = 1; #10;
+        instr_in = 4'b1011; data_a = 0; data_b = 1; #10;
+        
+        
+        
+        
+        $finish;
+    end
+endmodule

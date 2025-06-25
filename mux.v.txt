@@ -1,0 +1,16 @@
+module mux (
+    input wire [1:0] sel,   // 2-bit select line
+    input wire a, b, LU,    // 3 inputs
+    output reg y            // output
+);
+
+always @(*) begin
+    case (sel)
+        2'b00: y = a;
+        2'b01: y = b;
+        2'b10: y = LU;
+        default: y = 1'b0;  // default case for safety
+    endcase
+end
+
+endmodule

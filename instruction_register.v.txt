@@ -1,0 +1,6 @@
+module instruction_register(input clk, input rst, input load, input [3:0] instr_in, output reg [3:0] instr_out);
+    always @(posedge clk or posedge rst) begin
+        if (rst) instr_out <= 4'b0000;
+        else if (load) instr_out <= instr_in;
+    end
+endmodule
